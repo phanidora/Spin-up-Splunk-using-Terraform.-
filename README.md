@@ -121,18 +121,20 @@ Terraform is used to manage Splunk configurations, such as:
     This token will collect data and store it in the `user-test-index` index.
 
 - **Saved Searches**
-    A saved search named `new-search-01` has been created:
+    - A saved search named `new-search-01` has been created,
     Owner: testuser
     Alert Actions: Email notifications
     Search: Data from the user-test-index source aws:hec-token-01
     Schedule: Every 15 minutes
-    This saved search can be found under `Settings -> Knowledge -> Searches, Reports, and Alerts`.
+    This saved search can be found under `Settings -> Knowledge -> Searches, Reports, and Alerts`
+     and can be accessed by changing the owner filter to `ALL`.
 
-    `Prices Statistics Search`
+    - A saved search named `Prices Statistics Search` has been created,
     Another saved search named Prices Statistics Search calculates statistics on product prices:
     Schedule: Every 2 hours
     Owner: admin
-    This search provides average, minimum, and maximum price values from a lookup table prices.csv.
+    This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
+    It can be found by filtering the `owner` as Admin in the same Splunk Searches,Reports and Alerts section.
 
 - **Dashboard**: `Terraform_Sample_Dashboard_Prices`
      Terraform_Sample_Dashboard_Prices has been created to visualize data from the `prices` lookup.

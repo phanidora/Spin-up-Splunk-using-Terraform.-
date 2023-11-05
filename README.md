@@ -122,20 +122,21 @@ Terraform is used to manage Splunk configurations, such as:
 
 - **Saved Searches**
     - A saved search named `new-search-01` has been created,
-    Owner: testuser
+        - Name: `new-search-01`
+    Owner: `testuser`
+    App Context: `Search & Reporting (search)`
     Alert Actions: Email notifications
-    Search: Data from the user-test-index source aws:hec-token-01
-    Schedule: Every 15 minutes
-    This saved search can be found under `Settings -> Knowledge -> Searches, Reports, and Alerts`
-     and can be accessed by changing the owner filter to `ALL`.
+        Search: Data from the `user-test-index` source `aws:hec-token-01`
+        Schedule: Every 15 minutes
 
     - A saved search named `Prices Statistics Search` has been created,
-    Another saved search named Prices Statistics Search calculates statistics on product prices:
-    Schedule: Every 2 hours
-    Owner: admin
-    This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
-    It can be found by filtering the `owner` as Admin in the same Splunk Searches,Reports and Alerts section.
-
+      - Name: `Prices Statistics Search`
+            Owner: `admin`
+        App Context: `Search & Reporting (search)`
+        Schedule: Every 2 hours
+        Search: This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
+> [!NOTE] 
+> When filtering by owner, [ALL for new-search-01]() and [admin for Prices Statistics Search](), you can easily retrieve these searches within the `Search & Reporting(Search)` app context found under `Settings -> Knowledge -> Searches, Reports, and Alerts`.
 - **Dashboard**: `Terraform_Sample_Dashboard_Prices`
      Terraform_Sample_Dashboard_Prices has been created to visualize data from the `prices` lookup.
     Panels:

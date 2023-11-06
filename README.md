@@ -157,7 +157,7 @@ Terraform is used to manage Splunk configurations, such as:
            5. Failed vs. Successful Attempts - www*: A stacked bar chart comparing failed and successful login attempts across all www servers.
 
 
-- **Data Analysis:** A sample dataset prices.csv is added as input look up, and basic analysis is presented using Splunk's searching and reporting capabilities below
+- **Data Analysis for prices:** A sample dataset prices.csv is added as input look up, and basic analysis is presented using Splunk's searching and reporting capabilities below
  
     - ***Analysis-1:*** Summary of Products and Prices.
        - Objective: Provide a summary of the average, minimum, and maximum prices.
@@ -220,5 +220,25 @@ Terraform is used to manage Splunk configurations, such as:
            - Puppies vs. Zombies, Holy Blade of Gouda. Fire Resistance Suit of Provolone products have sale price less than half of the regular price.
 
 
+- **Data Analysis for tutorialdata in mailsv :** A sample dataset tutorialdata.zip is added as data, and is designed to assist users in analyzing various security and access logs to detect patterns and anomalies.
+  - ***Analysis-1:*** Failed attempts
+    - Objective: Count how many failed attempts have been made.
+    - Search Query:
+       ```
+       |index="user-test-index" source="tutorialdata.zip:./mailsv/secure.log" "Failed password"
+       | stats count as FailedAttempts
+       ```
+    - Findings
+      - A total of 24,462 failed password attempts were recorded.
+           
+  - ***Analysis-2:*** Successful Logins:
+    - Objective: Count the number of successful logins.
+    - Search Query:
+      ```
+      index="user-test-index" source="tutorialdata.zip:./mailsv/secure.log" "session opened"
+      | stats count as SuccessfulLogins
 
+      ```
+    - Findings
+      - There were 1,557 successful login events.
 

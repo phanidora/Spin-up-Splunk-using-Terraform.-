@@ -71,82 +71,90 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
     
 6. **AWS Infrastructure:**
     The following resources are provisioned for Splunk's infrastructure on AWS:
-        1. EC2 Instance for Splunk
-        2. Type: c5.large
-        3. Key Pair: Splunk-test(created for this assignment)
-        4. Security Group Configuration
+      1. EC2 Instance for Splunk
+      2. Type: c5.large
+      3. Key Pair: Splunk-test(created for this assignment)
+      4. Security Group Configuration
             - A custom security group splunk_custom_sg is set up with ingress rules for SSH, Splunk web interface, and Splunk management ports.
    
-7. **Access Splunk:**
-Once the Terraform apply is successful, you'll get the public IP of the deployed EC2 instance. After the deployment, The instance is up to access the Splunk web interface on port 8000 (Example: http://$aws_public_ip:8000).
+8. **Access Splunk:**
+   - Once the Terraform apply is successful, you'll get the public IP of the deployed EC2 instance. After the deployment, The instance is up to access the Splunk web interface on port 8000 (Example: http://$aws_public_ip:8000).
 
 ## Managing Splunk with Terraform
 Terraform is used to manage Splunk configurations, such as:
-- Creating a new Splunk user
-- Setting up a new index
-- Configuring HTTP Event Collector (HEC)
-- Establishing a saved search
-- Creating a dashboard for visualizations
+   - Creating a new Splunk user
+   - Setting up a new index
+   - Configuring HTTP Event Collector (HEC)
+   - Establishing a saved search
+   - Creating dashboards for visualizations
 
 ## Bonus Features
 - **Splunk Capabilities:** The project demonstrates creating users, indexes, setting up data inputs, creating saved searches and dashboard in Splunk.
 - **Creating a User**
-    A new user, testuser, has been created in Splunk with administrative privileges:
-    Username: `testuser`
-    Email: user_email@example.com
-    Role: admin
-    This user can be found in Splunk by navigating to `Settings -> Users and Authentication -> Users`.
+    - A new user, testuser, has been created in Splunk with administrative privileges:
+    - Username: `testuser`
+    - Email: user_email@example.com
+    - Role: admin
+    - This user can be found in Splunk by navigating to `Settings -> Users and Authentication -> Users`.
 
 - **Creating an Index**
-    A new index called `user-test-index` is set up:
-    Index Name: `user-test-index`
-    Hot Buckets: 6
-    DB Size Limit: 976 GB upto
-    This index is visible under `Settings -> Data -> Indexes`.
+    - A new index called `user-test-index` is set up:
+    - Index Name: `user-test-index`
+    - Hot Buckets: 6
+    - DB Size Limit: 976 GB upto
+    - This index is visible under `Settings -> Data -> Indexes`.
 
 - **HTTP Event Collector (HEC) Configuration**
-    A global HTTP Event Collector configuration is established with the following settings:
-    SSL Enabled: true
-    Port: 8088
-    Status: Enabled
+    - A global HTTP Event Collector configuration is established with the following settings:
+    - SSL Enabled: true
+    - Port: 8088
+    - Status: Enabled
 
 - **HEC Token**
-    A token for the HTTP Event Collector is created to allow data ingestion:
-    Token Name: hec-token-01
-    Bound Index: user-test-index
-    Additional Indexes: ["user-test-index", "history", "summary"]
-    Source Type: aws:sourcetype
-    Source: aws:source
-    Owner: testuser
-    Access Control: Global read by admin, write by admin
-    This token will collect data and store it in the `user-test-index` index.
+    - A token for the HTTP Event Collector is created to allow data ingestion:
+    - Token Name: hec-token-01
+    - Bound Index: user-test-index
+    - Additional Indexes: ["user-test-index", "history", "summary"]
+    - Source Type: aws:sourcetype
+    - Source: aws:source
+    - Owner: testuser
+    - Access Control: Global read by admin, write by admin
+    - This token will collect data and store it in the `user-test-index` index.
 
 - **Saved Searches**
     - A saved search named `new-search-01` has been created,
         - Name: `new-search-01`
-    Owner: `testuser`
-    App Context: `Search & Reporting (search)`
-    Alert Actions: Email notifications
-        Search: Data from the `user-test-index` source `aws:hec-token-01`
-        Schedule: Every 15 minutes
+        - Owner: `testuser`
+        - App Context: `Search & Reporting (search)`
+        - Alert Actions: Email notifications
+        - Search: Data from the `user-test-index` source `aws:hec-token-01`
+        - Schedule: Every 15 minutes
 
     - A saved search named `Prices Statistics Search` has been created,
-      - Name: `Prices Statistics Search`
-            Owner: `admin`
-        App Context: `Search & Reporting (search)`
-        Schedule: Every 2 hours
-        Search: This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
+         - Name: `Prices Statistics Search`
+         - Owner: `admin`
+         - App Context: `Search & Reporting (search)`
+         - Schedule: Every 2 hours
+         - Search: This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
 > [!NOTE] 
 > When filtering by owner, [ALL for new-search-01]() and [admin for Prices Statistics Search](), you can easily retrieve these searches within the `Search & Reporting(Search)` app context found under `Settings -> Knowledge -> Searches, Reports, and Alerts`.
-- **Dashboard**: `Terraform_Sample_Dashboard_Prices`
-     Terraform_Sample_Dashboard_Prices has been created to visualize data from the `prices` lookup.
-    Panels:
-    1. Product Prices Table:
-        Displays a table of product IDs, names, prices, sale prices, and codes.
-    2. Price vs Sale Price:
-       Shows a bar chart representing the average difference between the price and sale price for each product.
-    3. Price Distribution:
-        Presents a column chart with the distribution of product prices by intervals of 10.
+- **Dashboards**:
+   - `Terraform_Sample_Dashboard_Prices` has been created to visualize data from the `prices` lookup.
+       - Panels:
+          1. Product Prices Table:
+              Displays a table of product IDs, names, prices, sale prices, and codes.
+          2. Price vs Sale Price:
+             Shows a bar chart representing the average difference between the price and sale price for each product.
+          3. Price Distribution:
+              Presents a column chart with the distribution of product prices by intervals of 10.
+   
+   - `TutorialData_Dashboard` has been added to provide visual insights into tutorial data contained within the tutorialdata.zip file and is designed to assist users in analyzing various security and access logs to detect patterns and anomalies.
+        - panels:
+           1. Unique Users with Failed Attempts - mailsv: This panel displays the count of unique users who had failed login attempts on the mailsv server.
+           2. Failed vs. Successful Attempts - mailsv: A bar chart representing the number of failed versus successful login attempts on the mailsv server.
+           3. Top Requested Products - www1: Shows a bar chart with the most requested products, based on the logs from the www1 server.
+           4. Volume of Traffic Over Time - www2: A line chart indicating the volume of traffic over time, sourced from www2 server access logs.
+           5. Failed vs. Successful Attempts - www*: A stacked bar chart comparing failed and successful login attempts across all www servers.
 
 
 - **Data Analysis:** A sample dataset prices.csv is added as input look up, and basic analysis is presented using Splunk's searching and reporting capabilities below

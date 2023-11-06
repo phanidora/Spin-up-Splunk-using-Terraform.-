@@ -89,16 +89,16 @@ Terraform is used to manage Splunk configurations, such as:
    - Creating dashboards for visualizations
 
 ## Bonus Features
-- **Splunk Capabilities:** The project demonstrates creating users, indexes, setting up data inputs, creating saved searches and dashboard in Splunk.
+- **Splunk Capabilities:** The project demonstrates creating users, indexes, setting up data inputs, creating saved searches and dashboards in Splunk.
 - **Creating a User**
-    - A new user, testuser, has been created in Splunk with administrative privileges:
+    - A new user, testuser, has been created in Splunk with administrative privileges.
     - Username: `testuser`
     - Email: user_email@example.com
     - Role: admin
     - This user can be found in Splunk by navigating to `Settings -> Users and Authentication -> Users`.
 
 - **Creating an Index**
-    - A new index called `user-test-index` is set up:
+    - A new index called `user-test-index` is set up.
     - Index Name: `user-test-index`
     - Hot Buckets: 6
     - DB Size Limit: 976 GB upto
@@ -106,20 +106,20 @@ Terraform is used to manage Splunk configurations, such as:
 
 - **HTTP Event Collector (HEC) Configuration**
     - A global HTTP Event Collector configuration is established with the following settings:
-    - SSL Enabled: true
-    - Port: 8088
-    - Status: Enabled
+       - SSL Enabled: true
+       - Port: 8088
+       - Status: Enabled
 
 - **HEC Token**
     - A token for the HTTP Event Collector is created to allow data ingestion:
-    - Token Name: hec-token-01
-    - Bound Index: user-test-index
-    - Additional Indexes: ["user-test-index", "history", "summary"]
-    - Source Type: aws:sourcetype
-    - Source: aws:source
-    - Owner: testuser
-    - Access Control: Global read by admin, write by admin
-    - This token will collect data and store it in the `user-test-index` index.
+       - Token Name: hec-token-01
+       - Bound Index: user-test-index
+       - Additional Indexes: ["user-test-index", "history", "summary"]
+       - Source Type: aws:sourcetype
+       - Source: aws:source
+       - Owner: testuser
+       - Access Control: Global read by admin, write by admin
+       - This token will collect data and store it in the `user-test-index` index.
 
 - **Saved Searches**
     - A saved search named `new-search-01` has been created,
@@ -138,6 +138,7 @@ Terraform is used to manage Splunk configurations, such as:
          - Search: This search provides average, minimum, and maximum price values from a lookup table prices.csv. 
 > [!NOTE] 
 > When filtering by owner, [ALL for new-search-01]() and [admin for Prices Statistics Search](), you can easily retrieve these searches within the `Search & Reporting(Search)` app context found under `Settings -> Knowledge -> Searches, Reports, and Alerts`.
+
 - **Dashboards**:
    - `Terraform_Sample_Dashboard_Prices` has been created to visualize data from the `prices` lookup.
        - Panels:

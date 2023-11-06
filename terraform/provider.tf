@@ -15,6 +15,6 @@ terraform {
 provider "splunk" {
   url                  = "54.183.212.24:8089"
   username             = "admin"
-  password             = "SPLUNK-i-0f7a7179a00aa526b"
+  password             = SPLUNK-$instance id$
   insecure_skip_verify = true
 }

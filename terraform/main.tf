@@ -189,6 +189,97 @@ EAI_DATA
   }
 }
 
+#Dashboard for tutorial data
+resource "splunk_data_ui_views" "dashboard_tutorialdata" {
+  name     = "TutorialData_Dashboard"
+  eai_data = <<EAI_DATA
+<dashboard>
+  <label>Tutorial Data Analysis</label>
+  
+  <!-- Panel for Unique Users with Failed Attempts -->
+  <row>
+    <panel>
+      <title>Unique Users with Failed Attempts - mailsv</title>
+      <table>
+        <search>
+          <query>index="user-test-index" source="tutorialdata.zip:./mailsv/secure.log" "Failed password" | rex "for invalid user (?&lt;User&gt;\w+)" | stats count by User</query>
+          <earliest>0</earliest>
+          <latest>now</latest>
+        </search>
+      </table>
+    </panel>
+  </row>
+  
+  <!-- Panel for Failed vs. Successful Attempts -->
+  <row>
+    <panel>
+      <title>Failed vs. Successful Attempts - mailsv</title>
+      <chart>
+        <search>
+          <query>index="user-test-index" source="tutorialdata.zip:./mailsv/secure.log" | eval status=case(searchmatch("Failed password"), "Failed", searchmatch("session opened"), "Successful") | stats count by status</query>
+          <earliest>0</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+  
+  <!-- Panels for Top Requested Products in www1 -->
+  <row>
+    <panel>
+      <title>Top Requested Products - www1</title>
+      <chart>
+        <search>
+          <query>index="user-test-index" source="tutorialdata.zip:./www1/access.log" | rex field=_raw "productId=(?&lt;productId&gt;\w+)" | stats count by productId | sort - count</query>
+          <earliest>0</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+  
+  <!-- Panels for Volume of Traffic Over Time for www2 -->
+  <row>
+    <panel>
+      <title>Volume of Traffic Over Time - www2</title>
+      <chart>
+        <search>
+          <query>index="user-test-index" source="tutorialdata.zip:./www2/access.log" | timechart span=1m count</query>
+          <earliest>0</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+ <!-- Panel for Failed vs. Successful Attempts for www* -->
+  <row>
+    <panel>
+      <title>Failed vs. Successful Attempts - www*</title>
+      <chart>
+        <search>
+          <query>index="user-test-index" source="tutorialdata.zip:./www*/secure.log" | eval status=case(searchmatch("Failed password"), "Failed", searchmatch("session opened"), "Successful") | stats count by status, source</query>
+          <earliest>0</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">stackedBar</option>
+        <option name="charting.legend.placement">bottom</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>
+EAI_DATA
+
+  acl {
+    owner = "admin"
+    app   = "search"
+  }
+}
+
+
 
 
 

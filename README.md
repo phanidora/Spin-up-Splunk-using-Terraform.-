@@ -160,64 +160,64 @@ Terraform is used to manage Splunk configurations, such as:
 - **Data Analysis:** A sample dataset prices.csv is added as input look up, and basic analysis is presented using Splunk's searching and reporting capabilities below
  
     - ***Analysis-1:*** Summary of Products and Prices.
-    - Objective: Provide a summary of the average, minimum, and maximum prices.
-    - Search Query:
-        ```
-        | inputlookup prices 
-        | stats avg(price) as AveragePrice, min(price) as MinPrice, max(price) as MaxPrice
-        ```
-     - Findings
-        - The average price across all products is $23.24.
-        - The minimum price of a product is $3.99.
-        - The maximum price listed is $49.99.
+       - Objective: Provide a summary of the average, minimum, and maximum prices.
+       - Search Query:
+           ```
+           | inputlookup prices 
+           | stats avg(price) as AveragePrice, min(price) as MinPrice, max(price) as MaxPrice
+           ```
+        - Findings
+           - The average price across all products is $23.24.
+           - The minimum price of a product is $3.99.
+           - The maximum price listed is $49.99.
     
     - ***Analysis-2:*** Price Difference Analysis.
-    - Objective: Analyze the difference between the regular price and the sale price.
-    - Search Query:
-        ```
-        | inputlookup prices 
-        | eval PriceDifference = price - sale_price 
-        | stats avg(PriceDifference) as AverageDifference, max(PriceDifference) as MaxDifference, min(PriceDifference) as MinDifference
-        ```
-    -  Findings
-        - On average, products are $6.3125 cheaper on sale.
-        - The largest discount offerd is $15.00 off the regular price.
-        - The smallest discount amount is $2.00.
+       - Objective: Analyze the difference between the regular price and the sale price.
+       - Search Query:
+           ```
+           | inputlookup prices 
+           | eval PriceDifference = price - sale_price 
+           | stats avg(PriceDifference) as AverageDifference, max(PriceDifference) as MaxDifference, min(PriceDifference) as MinDifference
+           ```
+       -  Findings
+           - On average, products are $6.3125 cheaper on sale.
+           - The largest discount offerd is $15.00 off the regular price.
+           - The smallest discount amount is $2.00.
     
     - ***Analysis-3:*** Discount Percentage.
-    - Objective: Calculate the percentage of discount provided on average.
-    - Search Query:
-        ```
-        | inputlookup prices 
-        | eval DiscountPercent = round(100 * (price - sale_price) / price, 2)
-        | stats avg(DiscountPercent) as AverageDiscount
-        ```
-    - Findings:
-        - The average discount percentage across all products is 30.59%.
+       - Objective: Calculate the percentage of discount provided on average.
+       - Search Query:
+           ```
+           | inputlookup prices 
+           | eval DiscountPercent = round(100 * (price - sale_price) / price, 2)
+           | stats avg(DiscountPercent) as AverageDiscount
+           ```
+       - Findings:
+           - The average discount percentage across all products is 30.59%.
     
     - ***Analysis-4:***  Product Count by Price Range.
-    - Objective: Count how many products fall into various price ranges.
-    
-    - Search Query:
-        ```
-        | inputlookup prices 
-        | bin price span=10 
-        | stats count by price 
-        ```
-    - Findings:
-        - 2 products are priced between $10-$20.
-        - 5 products are in the $20-$30 price range, and so on.
+       - Objective: Count how many products fall into various price ranges.
+       
+       - Search Query:
+           ```
+           | inputlookup prices 
+           | bin price span=10 
+           | stats count by price 
+           ```
+       - Findings:
+           - 2 products are priced between $10-$20.
+           - 5 products are in the $20-$30 price range, and so on.
     
     - ***Analysis-5:*** Sales Analysis.
-    - Objective: Identify products with a sale price significantly lower than the regular price.
-    - Search Query:
-        ```
-        | inputlookup prices 
-        | where sale_price < 0.5 * price
-        | table productId, product_name, price, sale_price
-        ```
-    - Findings
-        - Puppies vs. Zombies, Holy Blade of Gouda. Fire Resistance Suit of Provolone products have sale price less than half of the regular price.
+       - Objective: Identify products with a sale price significantly lower than the regular price.
+       - Search Query:
+           ```
+           | inputlookup prices 
+           | where sale_price < 0.5 * price
+           | table productId, product_name, price, sale_price
+           ```
+       - Findings
+           - Puppies vs. Zombies, Holy Blade of Gouda. Fire Resistance Suit of Provolone products have sale price less than half of the regular price.
 
 
 

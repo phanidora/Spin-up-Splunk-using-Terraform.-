@@ -4,10 +4,10 @@
 The project's aim is to automate the deployment of Splunk Enterprise within AWS, utilizing a marketplace AMI and managing configurations through Terraform.
 
 ## Prerequisites
-- AWS Free Tier account
-- AWS CLI installed on your local machine
-- Terraform installed on your local machine
-- An AMI ID from Splunk's AWS Marketplace image 
+- AWS Free Tier account.
+- AWS CLI installed on your local machine.
+- Terraform installed on your local machine.
+- An AMI ID from Splunk's AWS Marketplace image.
 
 ## Setup Instructions
 1. **AWS Configuration:**

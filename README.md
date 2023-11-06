@@ -58,7 +58,7 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
      - Configures the HTTP Event Collector for data ingestion.
      - Generates an HTTP Event Collector token.
      - Defines saved searches for alerts and statistics.
-     - Constructs a Splunk dashboard for data visualization.
+     - Constructs Splunk dashboard's for data visualization.
 
 
  5. **Deployment Steps:**

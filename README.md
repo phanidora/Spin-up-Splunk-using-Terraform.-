@@ -149,7 +149,7 @@ Terraform is used to manage Splunk configurations, such as:
           3. Price Distribution:
               Presents a column chart with the distribution of product prices by intervals of 10.
    
-   - `TutorialData_Dashboard` has been added to provide visual insights into tutorial data contained within the tutorialdata.zip file and is designed to assist users in analyzing various security and access logs to detect patterns and anomalies.
+   - `TutorialData_Dashboard` has been added to provide visual insights into tutorial data contained within the tutorialdata.zip file added to index `user-test-index` and is designed to assist users in analyzing various security and access logs to detect patterns and anomalies.
         - panels:
            1. Unique Users with Failed Attempts - mailsv: This panel displays the count of unique users who had failed login attempts on the mailsv server.
            2. Failed vs. Successful Attempts - mailsv: A bar chart representing the number of failed versus successful login attempts on the mailsv server.

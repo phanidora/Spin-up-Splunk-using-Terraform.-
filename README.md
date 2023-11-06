@@ -5,6 +5,7 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
 
 ## Prerequisites
 - AWS Free Tier account
+- AWS CLI installed on your local machine
 - Terraform installed on your local machine
 - An AMI ID from Splunk's AWS Marketplace image 
 
@@ -14,7 +15,7 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
     - Install AWS CLI: 
          ```
           brew install awscli
-          aws --version [To verify the version]: #
+          aws --version //To verify the version installed
          ```
     
     - Setup IAM User:
@@ -31,7 +32,7 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
       ```
       > Enter ACCESS_KEY, SECRET_KEY, Default region name(us-west-1), and Default output format(json) when prompted.
 
-2. **Terraform Initialization:**
+2. **Terraform Installation:**
     ```
      brew install terraform
      terraform -v [To verify the version]: #
@@ -72,12 +73,12 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
     The following resources are provisioned for Splunk's infrastructure on AWS:
         1. EC2 Instance for Splunk
         2. Type: c5.large
-        3. Key Pair: Splunk-test
+        3. Key Pair: Splunk-test(created for this assignment)
         4. Security Group Configuration
             - A custom security group splunk_custom_sg is set up with ingress rules for SSH, Splunk web interface, and Splunk management ports.
-
-4. **Access Splunk:**
-Once the Terraform apply is successful, you'll get the public IP of the deployed EC2 instance. After the deployment. the instance is up to access the Splunk web interface on port 8000 (Example: http://$aws_public_ip:8000).
+   
+7. **Access Splunk:**
+Once the Terraform apply is successful, you'll get the public IP of the deployed EC2 instance. After the deployment, The instance is up to access the Splunk web interface on port 8000 (Example: http://$aws_public_ip:8000).
 
 ## Managing Splunk with Terraform
 Terraform is used to manage Splunk configurations, such as:

@@ -35,13 +35,13 @@ The project's aim is to automate the deployment of Splunk Enterprise within AWS,
 2. **Terraform Installation:**
     ```
      brew install terraform
-     terraform -v [To verify the version]: #
+     terraform -v //To verify the version
     ```
 3. **Initialize Project:**
     ```
     mkdir my-terraform-project && cd my-terraform-project
-    touch provider.tf [To create a provider.tf file]: #
-    touch main.tf [To create a main.tf file.]: #
+    touch provider.tf //To create a provider.tf file
+    touch main.tf //To create a main.tf file.
     ```
 
 4. **Terraform Templates:**
